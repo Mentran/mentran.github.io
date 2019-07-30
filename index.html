@@ -274,7 +274,7 @@
                 
               
 
-              <time title="创建时间：2019-07-30 14:17:21 / 修改时间：15:47:57" itemprop="dateCreated datePublished" datetime="2019-07-30T14:17:21+08:00">2019-07-30</time>
+              <time title="创建时间：2019-07-30 14:17:21 / 修改时间：16:33:24" itemprop="dateCreated datePublished" datetime="2019-07-30T14:17:21+08:00">2019-07-30</time>
             </span>
           
             
@@ -294,10 +294,12 @@
 
       
           
-            <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Git是一个分布式版本控制系统，每个终端都是一个完整的版本库，保留了所有数据信息和修改记录。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>设置以后该计算机上所有的git仓库都使用该用户</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Name"</span></span><br><span class="line">git config --global user.email <span class="string">"Email"</span></span><br></pre></td></tr></table></figure>
+            <h2 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h2><p>Git是一个分布式版本控制系统，每个终端都是一个完整的版本库，保留了所有数据信息和修改记录。</p>
+<h2 id="用户配置"><a href="#用户配置" class="headerlink" title="用户配置"></a>用户配置</h2><h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><ul>
+<li>设置以后该计算机上所有的git仓库都使用该用户<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"Name"</span></span><br><span class="line">git config --global user.email <span class="string">"Email"</span></span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h3 id="单独配置"><a href="#单独配置" class="headerlink" title="单独配置"></a>单独配置</h3><ol>
 <li><p>通过修改每个项目的.git/config文件进行设置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 增加user配置</span><br><span class="line">[user]</span><br><span class="line">    name = username</span><br><span class="line">    email = email@address.com</span><br></pre></td></tr></table></figure>
@@ -307,19 +309,36 @@
 
 </li>
 </ol>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> new_floder</span><br><span class="line">git init                <span class="comment"># 在 new_floder 下创建本地仓库，当前目录即为 工作区</span></span><br><span class="line">touch new_file      <span class="comment"># 创建新文件</span></span><br><span class="line">git add .               <span class="comment"># 将该目录下文件加入到 暂存区</span></span><br><span class="line">git status              <span class="comment"># 查看修改信息</span></span><br><span class="line">git commit -m <span class="string">"message"</span> <span class="comment"># 将暂存区的内容提交到 当前分支</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="工作区，暂存区，仓库"><a href="#工作区，暂存区，仓库" class="headerlink" title="工作区，暂存区，仓库"></a>工作区，暂存区，仓库</h2><p><img src="/images/pasted-0.png" alt="upload successful"></p>
+<p><img src="/images/pasted-1.png" alt="upload successful"></p>
+<ul>
+<li>Working Tree 当前的工作区域</li>
+<li>Index/Stage 暂存区域，和git stash命令暂存的地方不一样。使用git add xx，就可以将xx添加近Stage里面</li>
+<li>Repository 提交的历史，即使用git commit提交后的结果</li>
+</ul>
+<hr>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> new_floder</span><br><span class="line">git init                <span class="comment"># 在 new_floder 下创建本地仓库，当前目录即为 工作区</span></span><br><span class="line">touch new_file      <span class="comment"># 创建新文件</span></span><br><span class="line">git add .               <span class="comment"># 将该目录下文件加入到 暂存区</span></span><br><span class="line">git status              <span class="comment"># 查看修改信息</span></span><br><span class="line">git commit -m <span class="string">"message"</span> <span class="comment"># 将暂存区的内容提交到 当前分支</span></span><br></pre></td></tr></table></figure>
 
 <p>Git管理的是文件的修改，需要将所有改变的文件通过 <code>git add</code> 加入到暂存区。<code>git commit</code>只负责提交暂存区中的内容到当前分支上。</p>
-<h2 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status                  # 查看当前暂存区的内容</span><br><span class="line"></span><br><span class="line">git checkout -- file        # 将没有add的文件内容进行撤销，丢弃工作区的修改</span><br><span class="line"></span><br><span class="line">git reset HEAD file         # 将没有commit的文件从暂存区丢弃，不会撤销文件的内容</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^      # 将所有内容回退到上一个版本</span><br><span class="line">git reset --hard commit_id  # 将所有内容回退到指定版本</span><br></pre></td></tr></table></figure>
+<h3 id="reset三种模式"><a href="#reset三种模式" class="headerlink" title="reset三种模式"></a>reset三种模式</h3><p>reset就是让 <strong>HEAD</strong> 指针指向目标节点。</p>
+<ol>
+<li>git reset <strong>–hard</strong>: 重置HEAD位置，并把工作区，暂存区和仓库内容都完全重置到Reset节点的内容</li>
+<li>git reset <strong>–soft</strong>: 重置HEAD位置，保留工作区和暂存区的内容，只让仓库内容与Reset节点一致。原节点与Reset不一致的内容都放到暂存区中。</li>
+<li>git reset <strong>–mixed(默认)</strong>: 重置HEAD位置，只保留工作区的内容，将暂存区和仓库内容更改与Reset节点保持一致。原节点与Reset节点不一致的内容都放到工作区。</li>
+</ol>
+<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status                  # 查看当前暂存区的内容</span><br><span class="line"></span><br><span class="line">git checkout -- file        # 将工作区中的内容修改进行撤销</span><br><span class="line"># 如果暂存区有内容则使用暂存区内容</span><br><span class="line"># 否则使用版本库中的内容</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^      # 将所有内容回退到上一个版本</span><br><span class="line">git reset --hard commit_id  # 将所有内容回退到指定版本</span><br></pre></td></tr></table></figure>
 
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><ol>
+<hr>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><h4 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h4><ol>
 <li>首先通过Github建立一个远程仓库的repository</li>
 <li><code>git remote add origin git@github.com:xxx/xxx.git</code></li>
 <li><code>git push origin master</code> # 将本地的(master)内容提交到远程库上</li>
 </ol>
-<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com/xxx/xxx.git                # 默认克隆master分支的内容</span><br><span class="line">git clone -b new_branch git@github.com/xxx/xxx.git  # 克隆new_branch</span><br></pre></td></tr></table></figure>
+<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com/xxx/xxx.git                # 默认克隆master分支的内容</span><br><span class="line">git clone -b new_branch git@github.com/xxx/xxx.git  # 克隆new_branch</span><br></pre></td></tr></table></figure>
 
-<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>分支就是在当前记录下通过构建一个新的指针来创建一个支线。</p>
+<hr>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>分支就是在当前记录下通过构建一个新的指针来创建一个支线。</p>
 <p>创建新的分支并切换</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch new_branch</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
 
@@ -327,10 +346,11 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch                  # 查看分支情况</span><br><span class="line">git branch -d new_branch    # 删除分支</span><br></pre></td></tr></table></figure>
 
-<h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p>切换回master分支，并将new_branch分支进行合并</p>
+<h4 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h4><p>切换回master分支，并将new_branch分支进行合并</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge new_branch</span><br></pre></td></tr></table></figure>
 
-<h2 id="stash保存现场"><a href="#stash保存现场" class="headerlink" title="stash保存现场"></a>stash保存现场</h2><p>保存当前的工作区环境，处理其他branch事务；完成后再恢复现场。</p>
+<hr>
+<h3 id="stash保存现场"><a href="#stash保存现场" class="headerlink" title="stash保存现场"></a>stash保存现场</h3><p>保存当前的工作区环境，处理其他branch事务；完成后再恢复现场。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash       # 保存现场</span><br><span class="line">...             # 其他事务</span><br><span class="line">git stash list  # 查看现场</span><br><span class="line">git stash pop   # 恢复最近的现场</span><br></pre></td></tr></table></figure>
           
         
