@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Markdown Syntax]]></title>
+    <url>%2F2018%2F04%2F11%2FMarkdown-Syntax%2F</url>
+    <content type="text"><![CDATA[Markdown SyntaxBasic标题# 一级标题 ## 二级标题 ### 三级标题 ##### 四级标题 ###### 五级标题 ####### 六级标题列表* + - 都可以表示无序列表 1. 表示有序列表 * [ ] 待办事项 * [x] 已办事项引用&gt; text &gt; &gt;&gt; text &gt; &gt; text 强调*text* # 斜体 **text** # 加粗 ~~text~~ # 删除分割线*** ---图片与链接[链接文本](link &quot;Title&quot;) ![alt text](/path/to/img.jpg &quot;Title&quot;)代码1. tab自动建立一个代码区块 2. `代码` 可用于行内，嵌入到文字中 3. 用 3个`+language 来写大块代码表格|标题|标题|标题| |:-|:-:|-:| |居左|居中|居右| 注：第二行用于分割表头和内容，每行两边都用|或者都不用 标题 标题 标题 居左 居中 居右 Next 主题内建插件引用块123&#123;% centerquote %&#125;Everyone you will ever meet knows something you don&apos;t.&#123;% endcenterquote %&#125; Everyone you will ever meet knows something you don’t. 123&#123;% blockquote 作者, 来源 %&#125;Mind.&#123;% endblockquote %&#125; Mind. 作者来源 123&#123;% blockquote Author http://linkaddress link content %&#125;Content&#123;% endblockquote %&#125; Content Authorlink content 其他嵌入12345678&#123;% iframe url [width] [height] %&#125;&#123;% youtube video_id %&#125;&#123;% fullimage /image_path, alt, title %&#125;# Bootstrap class_name&#123;% note class_name %&#125; Content &#123;% endnote %&#125; Bootstrap Primary]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Deploy Hexo on Github]]></title>
+    <url>%2F2018%2F04%2F10%2FDeploy-Hexo-on-Github%2F</url>
+    <content type="text"><![CDATA[Deploy Hexo on Githubgithttps://git-scm.com/download/ Node.jshttp://nodejs.org/download/ Hexoinstall Hexo1npm install -g hexo init and start server1234hexo init # create a new Hexo foldernpm install # install dependencyhexo g # generate staic fileshexo s # start server set git infomation1234567npm install hexo-deployer-git --savevi _config.yml-----------_config.yml-----------------deploy: type: git repo: git@github.com:yourname.github.io.git branch: master create new post1hexo new [layout] &lt;title&gt; deploy your blog to git12hexo cleanhexo d # deploy Manager source code on gitcreate a new branch to save code12git branch hexo # new branch 'hexo'git checkout hexo # checkout to 'hexo' add remote origin and push12345git initgit add .git commit -m "message" # commitgit remote add origin git@github.comgit push origin hexo # push local hexo to remote branch hexo]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+</search>
