@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[zsh]]></title>
     <url>%2F2019%2F07%2F31%2Fzsh%2F</url>
-    <content type="text"><![CDATA[zsh准备12echo $SHELL #查看当前shell环境cat /etc/shells # 查看是否已安装zsh 安装zsh12sudo apt-get install zsh # ubuntubrew install zsh # mac 切换shell环境1chsh -s /usr/bin/zsh oh-my-zsh用于配置zsh环境 ###安装 oh-my-zsh 1wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh 配置zsh主题和插件 下载 命令高亮 插件 zsh-syntax-highlighting 到 zsh 插件库中 1git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting 下载 自动提示补全 插件 zsh-autosuggestions 到 zsh 插件库中 1git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions 修改主题：打开~/.zshrc 文件，将 ZSH_THEME 字段改为 1ZSH_THEME=&quot;ys&quot; 使用插件：打开~/.zshrc 文件，将 plugins 字段改为 1plugins=(git z zsh-syntax-highlighting zsh-autosuggestions) 使修改生效 1source ~/.zshrc]]></content>
+    <content type="text"><![CDATA[zsh 环境准备 查看当前 shell 环境 12echo $SHELL #查看当前shell环境cat /etc/shells # 查看是否已安装zsh 安装zsh 12sudo apt-get install zsh # ubuntubrew install zsh # mac 切换shell环境 1chsh -s /usr/bin/zsh 下载安装 oh-my-zsh 1wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh 配置 zsh 主题和插件 下载 命令高亮 插件 zsh-syntax-highlighting 到 zsh 插件库中 1git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting 下载 自动提示补全 插件 zsh-autosuggestions 到 zsh 插件库中 1git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions 修改主题：打开~/.zshrc 文件，将 ZSH_THEME 字段改为 1ZSH_THEME=&quot;ys&quot; 使用插件：打开~/.zshrc 文件，将 plugins 字段改为 1plugins=(git z zsh-syntax-highlighting zsh-autosuggestions) 使修改生效 1source ~/.zshrc]]></content>
   </entry>
   <entry>
     <title><![CDATA[Git 操作介绍]]></title>
