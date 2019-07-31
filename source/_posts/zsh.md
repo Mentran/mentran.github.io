@@ -24,7 +24,11 @@ date: 2019-07-31 15:33:00
     ```
 4. 下载安装 `oh-my-zsh`
     ```bash
-    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+    # wget
+    sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    
+    # curl
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     ```
 <!-- more -->
 ***
