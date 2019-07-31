@@ -28,7 +28,7 @@ git config user.email "New email"
 ```
 ***
 ## 工作区，暂存区，仓库
-
+<!-- more -->
 ![upload successful](/images/pasted-0.png)
 
 ![upload successful](/images/pasted-1.png)

@@ -18,12 +18,11 @@ tags:
     ```bash
     chsh -s /usr/bin/zsh
     ```
-
 4. 下载安装 `oh-my-zsh`
     ```bash
     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
     ```
-
+<!-- more -->
 ***
 
 ## 配置 zsh 主题和插件
