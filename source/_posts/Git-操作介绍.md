@@ -1,7 +1,10 @@
 title: Git 操作介绍
 author: Mentran
-date: 2019-07-30 14:17:21
 tags:
+  - git
+  - 配置
+categories: []
+date: 2019-07-30 14:17:00
 ---
 ## Git简介
 Git是一个分布式版本控制系统，每个终端都是一个完整的版本库，保留了所有数据信息和修改记录。

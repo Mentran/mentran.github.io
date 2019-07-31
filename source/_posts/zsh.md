@@ -1,7 +1,11 @@
 title: zsh
 author: Mentran
-date: 2019-07-31 15:33:05
 tags:
+  - zsh
+  - shell
+  - 配置
+categories: []
+date: 2019-07-31 15:33:00
 ---
 ## zsh 环境准备
 1. 查看当前 `shell` 环境
