@@ -58,6 +58,7 @@
 </script>
 
   <meta name="description" content="Git简介Git是一个分布式版本控制系统，每个终端都是一个完整的版本库，保留了所有数据信息和修改记录。 用户配置全局配置 设置以后该计算机上所有的git仓库都使用该用户12git config --global user.name &quot;Name&quot;git config --global user.email &quot;Email&quot;    单独配置 通过修改每个项目的.git/config文件进行设置 1234">
+<meta name="keywords" content="git,配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 操作介绍">
 <meta property="og:url" content="http://yoursite.com/2019/07/30/Git-操作介绍/index.html">
@@ -66,7 +67,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/pasted-0.png">
 <meta property="og:image" content="http://yoursite.com/images/pasted-1.png">
-<meta property="og:updated_time" content="2019-07-31T08:18:36.050Z">
+<meta property="og:updated_time" content="2019-08-02T02:46:48.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 操作介绍">
 <meta name="twitter:description" content="Git简介Git是一个分布式版本控制系统，每个终端都是一个完整的版本库，保留了所有数据信息和修改记录。 用户配置全局配置 设置以后该计算机上所有的git仓库都使用该用户12git config --global user.name &quot;Name&quot;git config --global user.email &quot;Email&quot;    单独配置 通过修改每个项目的.git/config文件进行设置 1234">
@@ -280,7 +281,7 @@
                 
               
 
-              <time title="创建时间：2019-07-30 14:17:21" itemprop="dateCreated datePublished" datetime="2019-07-30T14:17:21+08:00">2019-07-30</time>
+              <time title="创建时间：2019-07-30 14:17:00" itemprop="dateCreated datePublished" datetime="2019-07-30T14:17:00+08:00">2019-07-30</time>
             </span>
           
             
@@ -293,7 +294,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-31 16:18:36" itemprop="dateModified" datetime="2019-07-31T16:18:36+08:00">2019-07-31</time>
+                <time title="修改时间：2019-08-02 10:46:48" itemprop="dateModified" datetime="2019-08-02T10:46:48+08:00">2019-08-02</time>
               </span>
             
           
@@ -317,10 +318,10 @@
 </ul>
 <h3 id="单独配置"><a href="#单独配置" class="headerlink" title="单独配置"></a>单独配置</h3><ol>
 <li><p>通过修改每个项目的.git/config文件进行设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 增加user配置</span><br><span class="line">[user]</span><br><span class="line">    name = username</span><br><span class="line">    email = email@address.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增加user配置</span></span><br><span class="line">[user]</span><br><span class="line">    name = username</span><br><span class="line">    email = email@address.com</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在项目中重新指定用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name &quot;New user&quot;</span><br><span class="line">git config user.email &quot;New email&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name <span class="string">"New user"</span></span><br><span class="line">git config user.email <span class="string">"New email"</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -343,7 +344,7 @@
 <li>git reset <strong>–soft</strong>: 重置HEAD位置，保留工作区和暂存区的内容，只让仓库内容与Reset节点一致。原节点与Reset不一致的内容都放到暂存区中。</li>
 <li>git reset <strong>–mixed(默认)</strong>: 重置HEAD位置，只保留工作区的内容，将暂存区和仓库内容更改与Reset节点保持一致。原节点与Reset节点不一致的内容都放到工作区。</li>
 </ol>
-<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status                  # 查看当前暂存区的内容</span><br><span class="line"></span><br><span class="line">git checkout -- file        # 将工作区中的内容修改进行撤销</span><br><span class="line"># 如果暂存区有内容则使用暂存区内容</span><br><span class="line"># 否则使用版本库中的内容</span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^      # 将所有内容回退到上一个版本</span><br><span class="line">git reset --hard commit_id  # 将所有内容回退到指定版本</span><br></pre></td></tr></table></figure>
+<h3 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git status                  <span class="comment"># 查看当前暂存区的内容</span></span><br><span class="line"></span><br><span class="line">git checkout -- file        <span class="comment"># 将工作区中的内容修改进行撤销</span></span><br><span class="line"><span class="comment"># 如果暂存区有内容则使用暂存区内容</span></span><br><span class="line"><span class="comment"># 否则使用版本库中的内容</span></span><br><span class="line"></span><br><span class="line">git reset --hard HEAD^      <span class="comment"># 将所有内容回退到上一个版本</span></span><br><span class="line">git reset --hard commit_id  <span class="comment"># 将所有内容回退到指定版本</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><h4 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h4><ol>
@@ -351,23 +352,23 @@
 <li><code>git remote add origin git@github.com:xxx/xxx.git</code></li>
 <li><code>git push origin master</code> # 将本地的(master)内容提交到远程库上</li>
 </ol>
-<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com/xxx/xxx.git                # 默认克隆master分支的内容</span><br><span class="line">git clone -b new_branch git@github.com/xxx/xxx.git  # 克隆new_branch</span><br></pre></td></tr></table></figure>
+<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com/xxx/xxx.git                <span class="comment"># 默认克隆master分支的内容</span></span><br><span class="line">git <span class="built_in">clone</span> -b new_branch git@github.com/xxx/xxx.git  <span class="comment"># 克隆new_branch</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>分支就是在当前记录下通过构建一个新的指针来创建一个支线。</p>
 <p>创建新的分支并切换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch new_branch</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch new_branch</span><br><span class="line">git checkout new_branch</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new_branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new_branch</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch                  # 查看分支情况</span><br><span class="line">git branch -d new_branch    # 删除分支</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch                  <span class="comment"># 查看分支情况</span></span><br><span class="line">git branch -d new_branch    <span class="comment"># 删除分支</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h4><p>切换回master分支，并将new_branch分支进行合并</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge new_branch</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge new_branch</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="stash保存现场"><a href="#stash保存现场" class="headerlink" title="stash保存现场"></a>stash保存现场</h3><p>保存当前的工作区环境，处理其他branch事务；完成后再恢复现场。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash       # 保存现场</span><br><span class="line">...             # 其他事务</span><br><span class="line">git stash list  # 查看现场</span><br><span class="line">git stash pop   # 恢复最近的现场</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git stash       <span class="comment"># 保存现场</span></span><br><span class="line">...             <span class="comment"># 其他事务</span></span><br><span class="line">git stash list  <span class="comment"># 查看现场</span></span><br><span class="line">git stash pop   <span class="comment"># 恢复最近的现场</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -375,6 +376,14 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/配置/" rel="tag"># 配置</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
               <a href="/2018/04/11/Markdown-Syntax/" rel="next" title="Markdown Syntax">
@@ -444,8 +453,25 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
         </a>
       </div>
     
@@ -465,7 +491,19 @@
         
           
         
-        <span class="site-state-item-count">3</span>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
