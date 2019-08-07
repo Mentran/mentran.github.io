@@ -18,14 +18,14 @@ git config --global user.email "Email"
 ```
 ### 单独配置
 1. 通过修改每个项目的.git/config文件进行设置
-```
+```bash
 # 增加user配置
 [user]
     name = username
     email = email@address.com
 ```
 2. 在项目中重新指定用户
-```
+```bash
 git config user.name "New user"
 git config user.email "New email"
 ```
@@ -60,7 +60,7 @@ reset就是让 **HEAD** 指针指向目标节点。
 3. git reset **--mixed(默认)**: 重置HEAD位置，只保留工作区的内容，将暂存区和仓库内容更改与Reset节点保持一致。原节点与Reset节点不一致的内容都放到工作区。
 
 ### 撤销
-```
+```bash
 git status                  # 查看当前暂存区的内容
 
 git checkout -- file        # 将工作区中的内容修改进行撤销
@@ -78,7 +78,7 @@ git reset --hard commit_id  # 将所有内容回退到指定版本
 3. `git push origin master` # 将本地的(master)内容提交到远程库上
 
 #### 克隆
-```
+```bash
 git clone git@github.com/xxx/xxx.git                # 默认克隆master分支的内容
 git clone -b new_branch git@github.com/xxx/xxx.git  # 克隆new_branch
 ```
@@ -87,30 +87,30 @@ git clone -b new_branch git@github.com/xxx/xxx.git  # 克隆new_branch
 分支就是在当前记录下通过构建一个新的指针来创建一个支线。
 
 创建新的分支并切换
-```
+```bash
 git branch new_branch
 git checkout new_branch
 ```
 
-```
+```bash
 git checkout -b new_branch
 ```
 
-```
+```bash
 git branch                  # 查看分支情况
 git branch -d new_branch    # 删除分支
 ```
 
 #### merge
 切换回master分支，并将new_branch分支进行合并
-```
+```bash
 git checkout master
 git merge new_branch
 ```
 ***
 ### stash保存现场
 保存当前的工作区环境，处理其他branch事务；完成后再恢复现场。
-```
+```bash
 git stash       # 保存现场
 ...             # 其他事务
 git stash list  # 查看现场
