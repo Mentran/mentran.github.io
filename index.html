@@ -238,6 +238,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/72-Edit-Distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mentran">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/pikachu.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next Step">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/07/72-Edit-Distance/" class="post-title-link" itemprop="url">72. Edit Distance</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-07 15:45:00 / 修改时间：17:27:36" itemprop="dateCreated datePublished" datetime="2019-08-07T15:45:00+08:00">2019-08-07</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+<p>你可以对一个单词进行如下三种操作：</p>
+<p>插入一个字符<br>删除一个字符<br>替换一个字符</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">horse -&gt; rorse (将 &apos;h&apos; 替换为 &apos;r&apos;)</span><br><span class="line">rorse -&gt; rose (删除 &apos;r&apos;)</span><br><span class="line">rose -&gt; ros (删除 &apos;e&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: word1 = &quot;intention&quot;, word2 = &quot;execution&quot;</span><br><span class="line">输出: 5</span><br><span class="line">解释: </span><br><span class="line">intention -&gt; inention (删除 &apos;t&apos;)</span><br><span class="line">inention -&gt; enention (将 &apos;i&apos; 替换为 &apos;e&apos;)</span><br><span class="line">enention -&gt; exention (将 &apos;n&apos; 替换为 &apos;x&apos;)</span><br><span class="line">exention -&gt; exection (将 &apos;n&apos; 替换为 &apos;c&apos;)</span><br><span class="line">exection -&gt; execution (插入 &apos;u&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p><strong>DP</strong> 问题</p>
+</li>
+<li><p>考虑状态变化</p>
+<blockquote>
+<p><code>dp[i][j]</code> 有3种变化</p>
+<ul>
+<li><code>dp[i-1][j-1]</code> : <code>word1[i]</code> 修改为 <code>word2[j]</code>，注意当<code>word1[i]==word2[j]</code>时，编辑距离不变，否则编辑距离+1</li>
+<li><code>dp[i-1][j]</code> : <code>word1</code> 插入字符 或 <code>word2[j]</code> 删除字符，编辑距离+1</li>
+<li><code>dp[i][j-1]</code> : <code>word1</code> 删除字符 或 <code>word2[j]</code> 插入字符，编辑距离+1</li>
+</ul>
+</blockquote>
+</li>
+<li><p>状态转移方程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = min(dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + (word1[i]!=word2[j]), dp[i<span class="number">-1</span>][j] + <span class="number">1</span>, dp[i][j<span class="number">-1</span>] + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>考虑初始状态</p>
+</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minDistance</span><span class="params">(word1: str, word2: str)</span> -&gt; int:</span></span><br><span class="line">    l1, l2 = len(word1), len(word2)</span><br><span class="line">    dp = [[<span class="number">0</span>] * (l2 + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(l1 + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(l1 + <span class="number">1</span>):</span><br><span class="line">        dp[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(l2 + <span class="number">1</span>):</span><br><span class="line">        dp[<span class="number">0</span>][j] = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1 + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2 + <span class="number">1</span>):</span><br><span class="line">            dp[i][j] = min(dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + (word1[i - <span class="number">1</span>] != word2[j - <span class="number">1</span>]), dp[i - <span class="number">1</span>][j] + <span class="number">1</span>, dp[i][j - <span class="number">1</span>] + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[l1][l2]</span><br></pre></td></tr></table></figure>
+
+<h4 id="空间优化"><a href="#空间优化" class="headerlink" title="空间优化"></a>空间优化</h4><p>观察状态转移方程可以发现，<code>dp[i][j]</code> 的值只跟比<code>(i, j)</code>小的值有关，即可重复使用上一步的结果</p>
+<ul>
+<li>可增加1行保存上一层的结果</li>
+<li>可增加1个变量记录每次被更改的 <code>dp[i-1][j-1]</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minDistance</span><span class="params">(word1: str, word2: str)</span> -&gt; int:</span></span><br><span class="line">    l1, l2 = len(word1), len(word2)</span><br><span class="line">    dp = [<span class="number">0</span>] * (l2 + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(l2 + <span class="number">1</span>):</span><br><span class="line">        dp[j] = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1 + <span class="number">1</span>):</span><br><span class="line">        old_dp = dp[<span class="number">0</span>]</span><br><span class="line">        dp[<span class="number">0</span>] = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2 + <span class="number">1</span>):</span><br><span class="line">            tmp = dp[j]</span><br><span class="line">            dp[j] = min(old_dp + (word1[i - <span class="number">1</span>] != word2[j - <span class="number">1</span>]), dp[j] + <span class="number">1</span>, dp[j - <span class="number">1</span>] + <span class="number">1</span>)</span><br><span class="line">            old_dp = tmp</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[l2]</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/877-Stone-Game/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +409,7 @@
                 
               
 
-              <time title="创建时间：2019-08-07 10:44:00 / 修改时间：11:47:38" itemprop="dateCreated datePublished" datetime="2019-08-07T10:44:00+08:00">2019-08-07</time>
+              <time title="创建时间：2019-08-07 10:44:00 / 修改时间：11:55:38" itemprop="dateCreated datePublished" datetime="2019-08-07T10:44:00+08:00">2019-08-07</time>
             </span>
           
             
@@ -308,8 +443,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。</p>
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。</p>
 <p>游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。</p>
 <p>亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。</p>
 <p>假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。</p>
@@ -325,45 +459,15 @@
 </ul>
 <p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/stone-game" target="_blank" rel="noopener">https://leetcode-cn.com/problems/stone-game</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <hr>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li>首先可以看出是一道DP的题目</li>
-<li>需要找到一个状态转移的式子</li>
-<li>可以分析出第<code>n</code>个的最优解只有两种选择：<blockquote>
-<ul>
-<li>一是选择第一个石头，那么余下的<code>n-1</code>个石头的最优解由另一个人取得；</li>
-<li>二是选择最后一个石头，那么前<code>n-1</code>个石头的最优解由另一个人取得；</li>
-<li>那么第<code>n</code>个的最优解就是 <code>dp[n] = max(piles[0] - dp[1-&gt;n], piles[n] - dp[0-&gt;n-1])</code></li>
-</ul>
-</blockquote>
-</li>
-<li>从起始状态开始分析，模拟状态转移</li>
-</ol>
-<h3 id="模拟求解"><a href="#模拟求解" class="headerlink" title="模拟求解"></a>模拟求解</h3><p>模拟<code>piles = [3, 2, 10, 4]</code>进行求解每一步的结果：</p>
-<ol>
-<li><p>选1个石头时的最优解就是选当前这个石头，即</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = piles[<span class="number">0</span>] = <span class="number">3</span></span><br><span class="line">dp[<span class="number">1</span>] = piles[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">dp[<span class="number">2</span>] = piles[<span class="number">2</span>] = <span class="number">10</span></span><br><span class="line">dp[<span class="number">3</span>] = piles[<span class="number">3</span>] = <span class="number">4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>选2个石头时的最优解，就需要考虑比较当前石头和下一个石头的大小，即</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = max(piles[<span class="number">0</span>] - piles[<span class="number">1</span>], piles[<span class="number">1</span>] - piles[<span class="number">0</span>]) = max(<span class="number">1</span>, <span class="number">-1</span>) = <span class="number">1</span></span><br><span class="line">dp[<span class="number">1</span>] = max(piles[<span class="number">1</span>] - piles[<span class="number">2</span>], piles[<span class="number">2</span>] - piles[<span class="number">1</span>]) = max(<span class="number">-8</span>, <span class="number">8</span>) = <span class="number">8</span></span><br><span class="line">dp[<span class="number">2</span>] = max(piles[<span class="number">2</span>] - piles[<span class="number">3</span>], piles[<span class="number">3</span>] - piles[<span class="number">2</span>]) = max(<span class="number">6</span>, <span class="number">-6</span>) = <span class="number">6</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>选3个石头时，需要考虑当你选了某个石头，那么你的对手就能选余下石头的最优解，即</p>
-<blockquote>
-<ul>
-<li>当第一步选第一个位置的 3 时，那么对手将选2,3两个位置的最优解，即上一步的dp[1]，那么结果为 3 - 8 = -5;</li>
-<li>当第一步选最后一个位置 10 时，那么对手将选1,2两个位置的最优解，即上一步的dp[0]，那么结果为 10 - 1 = 9</li>
-</ul>
-</blockquote>
-<p> 所以，选3个石头的最优解标识为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = max(piles[<span class="number">0</span>] - dp[<span class="number">1</span>], piles[<span class="number">2</span>] - dp[<span class="number">0</span>]) = max(<span class="number">3</span><span class="number">-8</span>, <span class="number">10</span><span class="number">-1</span>) = <span class="number">9</span></span><br><span class="line">dp[<span class="number">1</span>] = max(piles[<span class="number">1</span>] - dp[<span class="number">2</span>], piles[<span class="number">3</span>] - dp[<span class="number">1</span>]) = max(<span class="number">2</span><span class="number">-6</span>, <span class="number">4</span><span class="number">-8</span>) = <span class="number">-4</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>选4个石头时，还是两种选法，比较选了第一个和选了最后一个的最大值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = max(piles[<span class="number">0</span>] - dp[<span class="number">1</span>], piles[<span class="number">3</span>] - dp[<span class="number">0</span>]) = max(<span class="number">3</span>-(<span class="number">-4</span>), <span class="number">4</span><span class="number">-9</span>) = <span class="number">7</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>得到最终赢得石头数是 <code>7</code></p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stoneGame</span><span class="params">(piles: list)</span>:</span></span><br><span class="line">    n = len(piles)</span><br><span class="line">    dp = list(piles)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, n - i):</span><br><span class="line">            dp[j] = max(piles[j] - dp[j + <span class="number">1</span>], piles[i + j] - dp[j])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>] &gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/07/877-Stone-Game/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -863,7 +967,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -913,7 +1017,9 @@
         
           
         
-        <span class="site-state-item-count">9</span>
+          
+        
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
