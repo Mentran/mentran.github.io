@@ -28,6 +28,8 @@ tf.train.write_graph(frozen_graph_def, 'path', "model_name.txt", as_text=True)
 * 注意节点名称，应包含name_scope 和 variable_scope命名空间，并用“/”隔开，如"InceptionV3/Logits/SpatialSqueeze"
 * 保存模型可以选择pb格式或者txt格式
 
+<!-- more -->
+
 #### 2. pb模型读取
 ```python
 with tf.Graph().as_default():
