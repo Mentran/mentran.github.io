@@ -274,7 +274,7 @@
                 
               
 
-              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：13:31:44" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:10:32" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
             </span>
           
             
@@ -370,6 +370,14 @@
 <li>可通过保存的 <strong>txt</strong> 模型查看节点的名称</li>
 <li>可修改保存的 <strong>txt</strong> 模型中的参数值，并将 <strong>txt</strong> 模型再转换成 <strong>pb</strong> 模型进行使用</li>
 </ul>
+<h4 id="示例：修改dropout值"><a href="#示例：修改dropout值" class="headerlink" title="示例：修改dropout值"></a>示例：修改dropout值</h4><p>在训练tensorflow模型时，经常需要设置 dropout；但是在测试时需要将dropout值固定；有时会忘记把dropout设置为placeholder进行传值，就可以通过修改保存的 pb 模型中的dropout值来达到目的（这样就不需要重新训练模型和修改模型结构）</p>
+<blockquote>
+<ol>
+<li>将 <strong>pb</strong> 模型转换成 <strong>txt</strong> 模型</li>
+<li>在 <strong>txt</strong> 模型中查询 <strong>dropout/keep_prob</strong> 将其中的 <strong>float_val</strong> 改为 <strong>1.0</strong> 即可</li>
+<li>再将 <strong>txt</strong> 模型转回 <strong>pb</strong> 模型</li>
+</ol>
+</blockquote>
 
           
         

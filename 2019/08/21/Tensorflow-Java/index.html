@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Next Step">
 <meta property="og:description" content="Tensorflow模型保存和读取1. pb模型保存12345# save for javafrozen_graph_def = tf.graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[&quot;prob&quot;, &quot;accuracy&quot;])# save as.pb filetf.train.wri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T05:31:44.719Z">
+<meta property="og:updated_time" content="2019-08-21T06:10:32.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow-Java">
 <meta name="twitter:description" content="Tensorflow模型保存和读取1. pb模型保存12345# save for javafrozen_graph_def = tf.graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[&quot;prob&quot;, &quot;accuracy&quot;])# save as.pb filetf.train.wri">
@@ -278,7 +278,7 @@
                 
               
 
-              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：13:31:44" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:10:32" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
             </span>
           
             
@@ -373,6 +373,14 @@
 <li>可通过保存的 <strong>txt</strong> 模型查看节点的名称</li>
 <li>可修改保存的 <strong>txt</strong> 模型中的参数值，并将 <strong>txt</strong> 模型再转换成 <strong>pb</strong> 模型进行使用</li>
 </ul>
+<h4 id="示例：修改dropout值"><a href="#示例：修改dropout值" class="headerlink" title="示例：修改dropout值"></a>示例：修改dropout值</h4><p>在训练tensorflow模型时，经常需要设置 dropout；但是在测试时需要将dropout值固定；有时会忘记把dropout设置为placeholder进行传值，就可以通过修改保存的 pb 模型中的dropout值来达到目的（这样就不需要重新训练模型和修改模型结构）</p>
+<blockquote>
+<ol>
+<li>将 <strong>pb</strong> 模型转换成 <strong>txt</strong> 模型</li>
+<li>在 <strong>txt</strong> 模型中查询 <strong>dropout/keep_prob</strong> 将其中的 <strong>float_val</strong> 改为 <strong>1.0</strong> 即可</li>
+<li>再将 <strong>txt</strong> 模型转回 <strong>pb</strong> 模型</li>
+</ol>
+</blockquote>
 
     </div>
 
@@ -543,7 +551,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow模型保存和读取"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow模型保存和读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-pb模型保存"><span class="nav-number">1.1.</span> <span class="nav-text">1. pb模型保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-pb模型读取"><span class="nav-number">1.2.</span> <span class="nav-text">2. pb模型读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ckpt模型的保存"><span class="nav-number">1.3.</span> <span class="nav-text">3. ckpt模型的保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ckpt模型转换成pb模型文件"><span class="nav-number">1.4.</span> <span class="nav-text">4. ckpt模型转换成pb模型文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-pb模型和txt模型的转换"><span class="nav-number">1.5.</span> <span class="nav-text">5. pb模型和txt模型的转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-调用-Tensorflow-模型"><span class="nav-number">2.</span> <span class="nav-text">Java 调用 Tensorflow 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-通过-Maven-引用依赖文件"><span class="nav-number">2.1.</span> <span class="nav-text">1. 通过 Maven 引用依赖文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-通过-Java-原生接口-JNI-与-JDK-配合使用"><span class="nav-number">2.2.</span> <span class="nav-text">2. 通过 Java 原生接口 (JNI) 与 JDK 配合使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-调用-pb-模型"><span class="nav-number">2.3.</span> <span class="nav-text">3. 调用 pb 模型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow模型保存和读取"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow模型保存和读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-pb模型保存"><span class="nav-number">1.1.</span> <span class="nav-text">1. pb模型保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-pb模型读取"><span class="nav-number">1.2.</span> <span class="nav-text">2. pb模型读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ckpt模型的保存"><span class="nav-number">1.3.</span> <span class="nav-text">3. ckpt模型的保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ckpt模型转换成pb模型文件"><span class="nav-number">1.4.</span> <span class="nav-text">4. ckpt模型转换成pb模型文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-pb模型和txt模型的转换"><span class="nav-number">1.5.</span> <span class="nav-text">5. pb模型和txt模型的转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-调用-Tensorflow-模型"><span class="nav-number">2.</span> <span class="nav-text">Java 调用 Tensorflow 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-通过-Maven-引用依赖文件"><span class="nav-number">2.1.</span> <span class="nav-text">1. 通过 Maven 引用依赖文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-通过-Java-原生接口-JNI-与-JDK-配合使用"><span class="nav-number">2.2.</span> <span class="nav-text">2. 通过 Java 原生接口 (JNI) 与 JDK 配合使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-调用-pb-模型"><span class="nav-number">2.3.</span> <span class="nav-text">3. 调用 pb 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例：修改dropout值"><span class="nav-number">2.4.</span> <span class="nav-text">示例：修改dropout值</span></a></li></ol></li></ol></div>
             
 
           </div>
