@@ -180,3 +180,10 @@ try (Graph graph = new Graph()) {
 ```
 * 可通过保存的 **txt** 模型查看节点的名称
 * 可修改保存的 **txt** 模型中的参数值，并将 **txt** 模型再转换成 **pb** 模型进行使用
+
+#### 示例：修改dropout值
+在训练tensorflow模型时，经常需要设置 dropout；但是在测试时需要将dropout值固定；有时会忘记把dropout设置为placeholder进行传值，就可以通过修改保存的 pb 模型中的dropout值来达到目的（这样就不需要重新训练模型和修改模型结构）
+
+>1. 将 **pb** 模型转换成 **txt** 模型
+>2. 在 **txt** 模型中查询 **dropout/keep_prob** 将其中的 **float_val** 改为 **1.0** 即可
+>3. 再将 **txt** 模型转回 **pb** 模型
