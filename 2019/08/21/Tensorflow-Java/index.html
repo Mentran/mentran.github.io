@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Next Step">
 <meta property="og:description" content="Tensorflow模型保存和读取1. pb模型保存12345# save for javafrozen_graph_def = tf.graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[&quot;prob&quot;, &quot;accuracy&quot;])# save as.pb filetf.train.wri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T06:10:32.180Z">
+<meta property="og:updated_time" content="2019-08-21T06:14:06.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow-Java">
 <meta name="twitter:description" content="Tensorflow模型保存和读取1. pb模型保存12345# save for javafrozen_graph_def = tf.graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[&quot;prob&quot;, &quot;accuracy&quot;])# save as.pb filetf.train.wri">
@@ -278,7 +278,7 @@
                 
               
 
-              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:10:32" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:14:06" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
             </span>
           
             
@@ -332,6 +332,8 @@
 <li><p>保存模型可以选择pb格式或者txt格式</p>
 </li>
 </ul>
+<a id="more"></a>
+
 <h4 id="2-pb模型读取"><a href="#2-pb模型读取" class="headerlink" title="2. pb模型读取"></a>2. pb模型读取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Graph().as_default():</span><br><span class="line">    output_graph_def = tf.GraphDef()</span><br><span class="line">    <span class="keyword">with</span> open(pb_path, <span class="string">"rb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        output_graph_def.ParseFromString(f.read())</span><br><span class="line">        tf.import_graph_def(output_graph_def, name=<span class="string">""</span>)</span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">        sess.run(tf.global_variables_initializer())</span><br><span class="line">        <span class="comment"># 定义输入的张量名称,对应网络结构的输入张量</span></span><br><span class="line">        <span class="comment"># input:0作为输入图像,keep_prob:0作为dropout的参数,测试时值为1,is_training:0训练参数</span></span><br><span class="line">        input_image_tensor = sess.graph.get_tensor_by_name(<span class="string">"input:0"</span>)</span><br><span class="line">        input_keep_prob_tensor = sess.graph.get_tensor_by_name(<span class="string">"keep_prob:0"</span>)</span><br><span class="line">        input_is_training_tensor = sess.graph.get_tensor_by_name(<span class="string">"is_training:0"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义输出的张量名称</span></span><br><span class="line">        output_tensor_name = sess.graph.get_tensor_by_name(<span class="string">"InceptionV3/Logits/SpatialSqueeze:0"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取测试图片</span></span><br><span class="line">        im=read_image(image_path,resize_height,resize_width,normalization=<span class="literal">True</span>)</span><br><span class="line">        im=im[np.newaxis,:]</span><br><span class="line">        <span class="comment"># 测试读出来的模型是否正确，注意这里传入的是输出和输入节点的tensor的名字，不是操作节点的名字</span></span><br><span class="line">        <span class="comment"># out=sess.run("InceptionV3/Logits/SpatialSqueeze:0", feed_dict=&#123;'input:0': im,'keep_prob:0':1.0,'is_training:0':False&#125;)</span></span><br><span class="line">        out=sess.run(output_tensor_name, feed_dict=&#123;input_image_tensor: im,</span><br><span class="line">                                                    input_keep_prob_tensor:<span class="number">1.0</span>,</span><br><span class="line">                                                    input_is_training_tensor:<span class="literal">False</span>&#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
