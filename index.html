@@ -238,6 +238,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Tensorflow-Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mentran">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/pikachu.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next Step">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/21/Tensorflow-Java/" class="post-title-link" itemprop="url">Tensorflow-Java</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：13:31:44" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h3 id="Tensorflow模型保存和读取"><a href="#Tensorflow模型保存和读取" class="headerlink" title="Tensorflow模型保存和读取"></a>Tensorflow模型保存和读取</h3><h4 id="1-pb模型保存"><a href="#1-pb模型保存" class="headerlink" title="1. pb模型保存"></a>1. pb模型保存</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># save for java</span></span><br><span class="line">frozen_graph_def = tf.graph_util.convert_variables_to_constants(sess, sess.graph_def, output_node_names=[<span class="string">"prob"</span>, <span class="string">"accuracy"</span>])</span><br><span class="line"><span class="comment"># save as.pb file</span></span><br><span class="line">tf.train.write_graph(frozen_graph_def, <span class="string">'path'</span>, <span class="string">"model_name.pb"</span>, as_text=<span class="literal">False</span>)</span><br><span class="line">tf.train.write_graph(frozen_graph_def, <span class="string">'path'</span>, <span class="string">"model_name.txt"</span>, as_text=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>pb 文件已经固化了网络模型结构，因此可恢复训练模型的结构和所有参数，但是必须知道原网络模型的输入和输出的节点名称</p>
+</li>
+<li><p>其中output_node_names中的名称必须与模型中的节点名称一致，例如</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(self.prob = tf.nn.softmax(self.outputs, name=<span class="string">"prob"</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意节点名称，应包含name_scope 和 variable_scope命名空间，并用“/”隔开，如”InceptionV3/Logits/SpatialSqueeze”</p>
+</li>
+<li><p>保存模型可以选择pb格式或者txt格式</p>
+</li>
+</ul>
+<h4 id="2-pb模型读取"><a href="#2-pb模型读取" class="headerlink" title="2. pb模型读取"></a>2. pb模型读取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Graph().as_default():</span><br><span class="line">    output_graph_def = tf.GraphDef()</span><br><span class="line">    <span class="keyword">with</span> open(pb_path, <span class="string">"rb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        output_graph_def.ParseFromString(f.read())</span><br><span class="line">        tf.import_graph_def(output_graph_def, name=<span class="string">""</span>)</span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">        sess.run(tf.global_variables_initializer())</span><br><span class="line">        <span class="comment"># 定义输入的张量名称,对应网络结构的输入张量</span></span><br><span class="line">        <span class="comment"># input:0作为输入图像,keep_prob:0作为dropout的参数,测试时值为1,is_training:0训练参数</span></span><br><span class="line">        input_image_tensor = sess.graph.get_tensor_by_name(<span class="string">"input:0"</span>)</span><br><span class="line">        input_keep_prob_tensor = sess.graph.get_tensor_by_name(<span class="string">"keep_prob:0"</span>)</span><br><span class="line">        input_is_training_tensor = sess.graph.get_tensor_by_name(<span class="string">"is_training:0"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义输出的张量名称</span></span><br><span class="line">        output_tensor_name = sess.graph.get_tensor_by_name(<span class="string">"InceptionV3/Logits/SpatialSqueeze:0"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取测试图片</span></span><br><span class="line">        im=read_image(image_path,resize_height,resize_width,normalization=<span class="literal">True</span>)</span><br><span class="line">        im=im[np.newaxis,:]</span><br><span class="line">        <span class="comment"># 测试读出来的模型是否正确，注意这里传入的是输出和输入节点的tensor的名字，不是操作节点的名字</span></span><br><span class="line">        <span class="comment"># out=sess.run("InceptionV3/Logits/SpatialSqueeze:0", feed_dict=&#123;'input:0': im,'keep_prob:0':1.0,'is_training:0':False&#125;)</span></span><br><span class="line">        out=sess.run(output_tensor_name, feed_dict=&#123;input_image_tensor: im,</span><br><span class="line">                                                    input_keep_prob_tensor:<span class="number">1.0</span>,</span><br><span class="line">                                                    input_is_training_tensor:<span class="literal">False</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模型中节点的名称可以通过保存的 <strong>text 模型文件中进行查看和修改</strong></li>
+</ul>
+<h4 id="3-ckpt模型的保存"><a href="#3-ckpt模型的保存" class="headerlink" title="3. ckpt模型的保存"></a>3. ckpt模型的保存</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 声明两个变量</span></span><br><span class="line">v1 = tf.Variable(tf.random_normal([<span class="number">1</span>, <span class="number">2</span>]), name=<span class="string">"v1"</span>)</span><br><span class="line">v2 = tf.Variable(tf.random_normal([<span class="number">2</span>, <span class="number">3</span>]), name=<span class="string">"v2"</span>)</span><br><span class="line">init_op = tf.global_variables_initializer() <span class="comment"># 初始化全部变量</span></span><br><span class="line">saver = tf.train.Saver() <span class="comment"># 声明tf.train.Saver类用于保存模型</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(init_op)</span><br><span class="line">    print(<span class="string">"v1:"</span>, sess.run(v1)) <span class="comment"># 打印v1、v2的值一会读取之后对比</span></span><br><span class="line">    print(<span class="string">"v2:"</span>, sess.run(v2))</span><br><span class="line">    saver_path = saver.save(sess, <span class="string">"save/model.ckpt"</span>)  <span class="comment"># 将模型保存到save/model.ckpt文件</span></span><br><span class="line">    print(<span class="string">"Model saved in file:"</span>, saver_path)</span><br></pre></td></tr></table></figure>
+
+<p>保存后有4个文件：</p>
+<blockquote>
+<ul>
+<li>checkpoint 是检查点文件，文件保存了一个目录下所有的模型文件列表</li>
+<li>model.ckpt.meta 文件保存了TensorFlow计算图的结构，可以理解为神经网络的网络结构，该文件可以被 tf.train.import_meta_graph 加载到当前默认的图来使用。</li>
+<li>ckpt.data 保存模型中每个变量的取值</li>
+<li>ckpt.index 索引文件</li>
+</ul>
+</blockquote>
+<h4 id="4-ckpt模型转换成pb模型文件"><a href="#4-ckpt模型转换成pb模型文件" class="headerlink" title="4. ckpt模型转换成pb模型文件"></a>4. ckpt模型转换成pb模型文件</h4><blockquote>
+<ul>
+<li>通过传入 CKPT 模型的路径得到模型的图和变量数据</li>
+<li>通过 import_meta_graph 导入模型中的图</li>
+<li>通过 saver.restore 从模型中恢复图中各个变量的数据</li>
+<li>通过 graph_util.convert_variables_to_constants 将模型持久化</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">freeze_graph</span><span class="params">(input_checkpoint, output_graph)</span>:</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">:param input_checkpoint:</span></span><br><span class="line"><span class="string">:param output_graph: PB模型保存路径</span></span><br><span class="line"><span class="string">:return:</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment"># checkpoint = tf.train.get_checkpoint_state(model_folder) #检查目录下ckpt文件状态是否可用</span></span><br><span class="line"><span class="comment"># input_checkpoint = checkpoint.model_checkpoint_path #得ckpt文件路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定输出的节点名称,该节点名称必须是原模型中存在的节点</span></span><br><span class="line">output_node_names = <span class="string">"InceptionV3/Logits/SpatialSqueeze"</span></span><br><span class="line">saver = tf.train.import_meta_graph(input_checkpoint + <span class="string">'.meta'</span>, clear_devices=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    saver.restore(sess, input_checkpoint) <span class="comment">#恢复图并得到数据</span></span><br><span class="line">    output_graph_def = graph_util.convert_variables_to_constants(  <span class="comment"># 模型持久化，将变量值固定</span></span><br><span class="line">        sess=sess,</span><br><span class="line">        input_graph_def=sess.graph_def,<span class="comment"># 等于:sess.graph_def</span></span><br><span class="line">        output_node_names=output_node_names.split(<span class="string">","</span>))<span class="comment"># 如果有多个输出节点，以逗号隔开</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.gfile.GFile(output_graph, <span class="string">"wb"</span>) <span class="keyword">as</span> f: <span class="comment">#保存模型</span></span><br><span class="line">        f.write(output_graph_def.SerializeToString()) <span class="comment">#序列化输出</span></span><br><span class="line">    print(<span class="string">"%d ops in the final graph."</span> % len(output_graph_def.node)) <span class="comment">#得到当前图有几个操作节点</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-pb模型和txt模型的转换"><a href="#5-pb模型和txt模型的转换" class="headerlink" title="5. pb模型和txt模型的转换"></a>5. pb模型和txt模型的转换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.platform <span class="keyword">import</span> gfile</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_pb_to_pbtxt</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> gfile.FastGFile(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read())</span><br><span class="line">        tf.import_graph_def(graph_def, name=<span class="string">''</span>)</span><br><span class="line">        tf.train.write_graph(graph_def, <span class="string">'./'</span>, <span class="string">'protobuf.pbtxt'</span>, as_text=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_pbtxt_to_pb</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="string">"""Returns a `tf.GraphDef` proto representing the data in the given pbtxt file.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">    filename: The name of a file containing a GraphDef pbtxt (text-formatted</span></span><br><span class="line"><span class="string">        `tf.GraphDef` protocol buffer data).</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">with</span> tf.gfile.FastGFile(filename, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line"></span><br><span class="line">        file_content = f.read()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Merges the human-readable string in `file_content` into `graph_def`.</span></span><br><span class="line">        text_format.Merge(file_content, graph_def)</span><br><span class="line">        tf.train.write_graph(graph_def, <span class="string">'./'</span>, <span class="string">'protobuf.pb'</span>, as_text=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Java-调用-Tensorflow-模型"><a href="#Java-调用-Tensorflow-模型" class="headerlink" title="Java 调用 Tensorflow 模型"></a>Java 调用 Tensorflow 模型</h3><h4 id="1-通过-Maven-引用依赖文件"><a href="#1-通过-Maven-引用依赖文件" class="headerlink" title="1. 通过 Maven 引用依赖文件"></a>1. 通过 <strong>Maven</strong> 引用依赖文件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.tensorflow<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tensorflow<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-通过-Java-原生接口-JNI-与-JDK-配合使用"><a href="#2-通过-Java-原生接口-JNI-与-JDK-配合使用" class="headerlink" title="2. 通过 Java 原生接口 (JNI) 与 JDK 配合使用"></a>2. 通过 Java 原生接口 (JNI) 与 JDK 配合使用</h4><ul>
+<li>下载 <strong>libtensorflow.jar</strong> 包</li>
+<li>下载 <strong>tensorflow_jni.dll</strong> 文件</li>
+<li>下载地址：<a href="https://www.tensorflow.org/install/lang_java#download" target="_blank" rel="noopener">https://www.tensorflow.org/install/lang_java#download</a></li>
+</ul>
+<h4 id="3-调用-pb-模型"><a href="#3-调用-pb-模型" class="headerlink" title="3. 调用 pb 模型"></a>3. 调用 <strong>pb</strong> 模型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Graph graph = <span class="keyword">new</span> Graph()) &#123;</span><br><span class="line">    <span class="comment">//导入图</span></span><br><span class="line">    <span class="keyword">byte</span>[] graphBytes = IOUtils.toByteArray(<span class="keyword">new</span> FileInputStream(model_path));</span><br><span class="line">    graph.importGraphDef(graphBytes);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据图建立Session</span></span><br><span class="line">    <span class="keyword">try</span> (Session session = <span class="keyword">new</span> Session(graph)) &#123;</span><br><span class="line">        <span class="comment">//相当于TensorFlow Python中的sess.run(["out_name1", "out_name2"], feed_dict = &#123;"input_name": 10.0&#125;)</span></span><br><span class="line">        <span class="comment">// 注意这里的名称必须与模型中的节点名称一致</span></span><br><span class="line">        <span class="comment">// 可通过feed和fetch输入输出多个结果</span></span><br><span class="line">        List&lt;Tensor&lt;?&gt;&gt; tensorList = session.runner()</span><br><span class="line">                .feed(<span class="string">"input_name"</span>, Tensor.create(<span class="number">10.0f</span>))</span><br><span class="line">                .fetch(<span class="string">"out_name1"</span>)</span><br><span class="line">                .fetch(<span class="string">"out_name2"</span>)</span><br><span class="line">                .run();</span><br><span class="line">        <span class="keyword">for</span> (Tensor t : tensorList) &#123;</span><br><span class="line">            System.out.println(t.floatValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可通过保存的 <strong>txt</strong> 模型查看节点的名称</li>
+<li>可修改保存的 <strong>txt</strong> 模型中的参数值，并将 <strong>txt</strong> 模型再转换成 <strong>pb</strong> 模型进行使用</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/72-Edit-Distance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +433,7 @@
                 
               
 
-              <time title="创建时间：2019-08-07 15:45:00 / 修改时间：17:27:36" itemprop="dateCreated datePublished" datetime="2019-08-07T15:45:00+08:00">2019-08-07</time>
+              <time title="创建时间：2019-08-07 15:45:00 / 修改时间：17:29:22" itemprop="dateCreated datePublished" datetime="2019-08-07T15:45:00+08:00">2019-08-07</time>
             </span>
           
             
@@ -308,8 +467,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
 <p>你可以对一个单词进行如下三种操作：</p>
 <p>插入一个字符<br>删除一个字符<br>替换一个字符</p>
 <p>示例 1:</p>
@@ -320,34 +478,15 @@
 
 <p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/edit-distance" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <hr>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li><p><strong>DP</strong> 问题</p>
-</li>
-<li><p>考虑状态变化</p>
-<blockquote>
-<p><code>dp[i][j]</code> 有3种变化</p>
-<ul>
-<li><code>dp[i-1][j-1]</code> : <code>word1[i]</code> 修改为 <code>word2[j]</code>，注意当<code>word1[i]==word2[j]</code>时，编辑距离不变，否则编辑距离+1</li>
-<li><code>dp[i-1][j]</code> : <code>word1</code> 插入字符 或 <code>word2[j]</code> 删除字符，编辑距离+1</li>
-<li><code>dp[i][j-1]</code> : <code>word1</code> 删除字符 或 <code>word2[j]</code> 插入字符，编辑距离+1</li>
-</ul>
-</blockquote>
-</li>
-<li><p>状态转移方程</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = min(dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + (word1[i]!=word2[j]), dp[i<span class="number">-1</span>][j] + <span class="number">1</span>, dp[i][j<span class="number">-1</span>] + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>考虑初始状态</p>
-</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minDistance</span><span class="params">(word1: str, word2: str)</span> -&gt; int:</span></span><br><span class="line">    l1, l2 = len(word1), len(word2)</span><br><span class="line">    dp = [[<span class="number">0</span>] * (l2 + <span class="number">1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(l1 + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(l1 + <span class="number">1</span>):</span><br><span class="line">        dp[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(l2 + <span class="number">1</span>):</span><br><span class="line">        dp[<span class="number">0</span>][j] = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1 + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2 + <span class="number">1</span>):</span><br><span class="line">            dp[i][j] = min(dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + (word1[i - <span class="number">1</span>] != word2[j - <span class="number">1</span>]), dp[i - <span class="number">1</span>][j] + <span class="number">1</span>, dp[i][j - <span class="number">1</span>] + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[l1][l2]</span><br></pre></td></tr></table></figure>
-
-<h4 id="空间优化"><a href="#空间优化" class="headerlink" title="空间优化"></a>空间优化</h4><p>观察状态转移方程可以发现，<code>dp[i][j]</code> 的值只跟比<code>(i, j)</code>小的值有关，即可重复使用上一步的结果</p>
-<ul>
-<li>可增加1行保存上一层的结果</li>
-<li>可增加1个变量记录每次被更改的 <code>dp[i-1][j-1]</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minDistance</span><span class="params">(word1: str, word2: str)</span> -&gt; int:</span></span><br><span class="line">    l1, l2 = len(word1), len(word2)</span><br><span class="line">    dp = [<span class="number">0</span>] * (l2 + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(l2 + <span class="number">1</span>):</span><br><span class="line">        dp[j] = j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, l1 + <span class="number">1</span>):</span><br><span class="line">        old_dp = dp[<span class="number">0</span>]</span><br><span class="line">        dp[<span class="number">0</span>] = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, l2 + <span class="number">1</span>):</span><br><span class="line">            tmp = dp[j]</span><br><span class="line">            dp[j] = min(old_dp + (word1[i - <span class="number">1</span>] != word2[j - <span class="number">1</span>]), dp[j] + <span class="number">1</span>, dp[j - <span class="number">1</span>] + <span class="number">1</span>)</span><br><span class="line">            old_dp = tmp</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp[l2]</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/07/72-Edit-Distance/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -967,7 +1106,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -984,7 +1123,11 @@
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1019,7 +1162,15 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
