@@ -7,7 +7,6 @@ tags:
   - tf
 categories:
   - tensorflow
-  - java
 date: 2019-08-21 11:12:00
 ---
 
