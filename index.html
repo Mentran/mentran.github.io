@@ -238,6 +238,118 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/Socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mentran">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/pikachu.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next Step">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/03/Socket/" class="post-title-link" itemprop="url">Socket</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-03 16:46:00 / 修改时间：17:31:17" itemprop="dateCreated datePublished" datetime="2019-09-03T16:46:00+08:00">2019-09-03</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Socket-代码实现"><a href="#Socket-代码实现" class="headerlink" title="Socket 代码实现"></a>Socket 代码实现</h3><h3 id="Java版"><a href="#Java版" class="headerlink" title="Java版"></a>Java版</h3><h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ServerSocket serverSocket;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化socket服务和端口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            serverSocket = <span class="keyword">new</span> ServerSocket(port);</span><br><span class="line">            System.out.println(<span class="string">"Server is running on port: "</span> + port);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"wait connection"</span>);</span><br><span class="line">                Socket socket = serverSocket.accept();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 接收信息</span></span><br><span class="line">                InputStream inputStream = socket.getInputStream();</span><br><span class="line">                String sInput = trans2string(inputStream);</span><br><span class="line">                System.out.println(<span class="string">"receive: "</span> + sInput);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 处理信息</span></span><br><span class="line">                String sResult = mainProcess(sInput);</span><br><span class="line">                System.out.println(<span class="string">"send: "</span> + sResult);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 发送结果</span></span><br><span class="line">                PrintStream printStream = <span class="keyword">new</span> PrintStream(socket.getOutputStream(), <span class="keyword">false</span>, <span class="string">"utf8"</span>);</span><br><span class="line">                printStream.print(sResult);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                printStream.close();</span><br><span class="line">                inputStream.close();</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">trans2string</span><span class="params">(InputStream inputStream)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ByteArrayOutputStream result = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> length;</span><br><span class="line">        <span class="keyword">while</span> ((length = inputStream.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            result.write(buffer, <span class="number">0</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">        result.close();</span><br><span class="line">        <span class="keyword">return</span> result.toString(<span class="string">"UTF-8"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/03/Socket/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/Tensorflow-Java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +386,7 @@
                 
               
 
-              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:14:06" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 11:12:00 / 修改时间：14:22:30" itemprop="dateCreated datePublished" datetime="2019-08-21T11:12:00+08:00">2019-08-21</time>
             </span>
           
             
@@ -290,13 +402,6 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
 
                 
                 
@@ -1071,7 +1176,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1092,7 +1197,9 @@
         
           
         
-        <span class="site-state-item-count">3</span>
+          
+        
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1135,7 +1242,9 @@
         
           
         
-        <span class="site-state-item-count">14</span>
+          
+        
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

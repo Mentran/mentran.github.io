@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/pikachu.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pikachu.png?v=7.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pikachu.png?v=7.2.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Socket 代码实现Java版服务端1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Server &amp;#123;    private ServerSocket serverSocket;    // 初始化socket服务和端口    pu">
+<meta name="keywords" content="python,socket,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socket">
+<meta property="og:url" content="http://yoursite.com/2019/09/03/Socket/index.html">
+<meta property="og:site_name" content="Next Step">
+<meta property="og:description" content="Socket 代码实现Java版服务端1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Server &amp;#123;    private ServerSocket serverSocket;    // 初始化socket服务和端口    pu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-03T09:31:17.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socket">
+<meta name="twitter:description" content="Socket 代码实现Java版服务端1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Server &amp;#123;    private ServerSocket serverSocket;    // 初始化socket服务和端口    pu">
+  <link rel="canonical" href="http://yoursite.com/2019/09/03/Socket/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Socket | Next Step</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next Step</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Always think next step</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/Socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mentran">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/pikachu.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next Step">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Socket
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-03 16:46:00 / 修改时间：17:31:17" itemprop="dateCreated datePublished" datetime="2019-09-03T16:46:00+08:00">2019-09-03</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br/>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Socket-代码实现"><a href="#Socket-代码实现" class="headerlink" title="Socket 代码实现"></a>Socket 代码实现</h3><h3 id="Java版"><a href="#Java版" class="headerlink" title="Java版"></a>Java版</h3><h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ServerSocket serverSocket;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化socket服务和端口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            serverSocket = <span class="keyword">new</span> ServerSocket(port);</span><br><span class="line">            System.out.println(<span class="string">"Server is running on port: "</span> + port);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"wait connection"</span>);</span><br><span class="line">                Socket socket = serverSocket.accept();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 接收信息</span></span><br><span class="line">                InputStream inputStream = socket.getInputStream();</span><br><span class="line">                String sInput = trans2string(inputStream);</span><br><span class="line">                System.out.println(<span class="string">"receive: "</span> + sInput);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 处理信息</span></span><br><span class="line">                String sResult = mainProcess(sInput);</span><br><span class="line">                System.out.println(<span class="string">"send: "</span> + sResult);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 发送结果</span></span><br><span class="line">                PrintStream printStream = <span class="keyword">new</span> PrintStream(socket.getOutputStream(), <span class="keyword">false</span>, <span class="string">"utf8"</span>);</span><br><span class="line">                printStream.print(sResult);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                printStream.close();</span><br><span class="line">                inputStream.close();</span><br><span class="line">                socket.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">trans2string</span><span class="params">(InputStream inputStream)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ByteArrayOutputStream result = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">int</span> length;</span><br><span class="line">        <span class="keyword">while</span> ((length = inputStream.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            result.write(buffer, <span class="number">0</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">        result.close();</span><br><span class="line">        <span class="keyword">return</span> result.toString(<span class="string">"UTF-8"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">clientProcess</span><span class="params">(String ip, <span class="keyword">int</span> port, String message)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// step1: init</span></span><br><span class="line">        Socket socket = <span class="keyword">new</span> Socket(ip, port);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// step2: send</span></span><br><span class="line">        PrintStream printStream = <span class="keyword">new</span> PrintStream(socket.getOutputStream());</span><br><span class="line">        printStream.print(message);</span><br><span class="line">        socket.shutdownOutput();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// step3: receive</span></span><br><span class="line">        InputStream inputStream = socket.getInputStream();</span><br><span class="line">        String result = trans2string(inputStream);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// step4: close</span></span><br><span class="line">        inputStream.close();</span><br><span class="line">        printStream.close();</span><br><span class="line">        socket.close();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python-版"><a href="#Python-版" class="headerlink" title="Python 版"></a>Python 版</h3><h4 id="服务端-1"><a href="#服务端-1" class="headerlink" title="服务端"></a>服务端</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">socketserver</span><span class="params">(HOST, PORT)</span>:</span></span><br><span class="line">    <span class="comment"># step1: init</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.bind((HOST, PORT))</span><br><span class="line">    s.listen(<span class="number">20</span>)</span><br><span class="line">    print(<span class="string">"listening"</span>, HOST, PORT)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># step2: accept</span></span><br><span class="line">        conn, addr = s.accept()</span><br><span class="line">        print(<span class="string">"connected by"</span>, addr)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            receive_message = conn.recv(<span class="number">10240</span>)</span><br><span class="line"></span><br><span class="line">            receive_message = bytes.decode(receive_message, <span class="string">"utf8"</span>)</span><br><span class="line">            print(<span class="string">"receive_message:"</span>, receive_message)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># step3: parse data</span></span><br><span class="line">            result_message = mainProcess(receive_message)</span><br><span class="line">            print(<span class="string">"process result"</span>, result_message)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># step4: send back</span></span><br><span class="line">            conn.send(bytes(str(result_message), encoding=<span class="string">'utf8'</span>))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(e)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            conn.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">socketclient</span><span class="params">(HOST, PORT, message)</span>:</span></span><br><span class="line">    <span class="comment"># step1: init</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.connect((HOST, PORT))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step2: send</span></span><br><span class="line">    message = bytes(message, encoding=<span class="string">'utf8'</span>)</span><br><span class="line">    s.sendall(message)</span><br><span class="line">    s.shutdown(socket.SHUT_WR)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step3: receive (default receive bytes:)</span></span><br><span class="line">    data = recv_basic(s)</span><br><span class="line">    print(bytes.decode(data, <span class="string">'utf8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step: close</span></span><br><span class="line">    s.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recv_basic</span><span class="params">(tmp_socket)</span>:</span></span><br><span class="line">    out_data = <span class="string">""</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = tmp_socket.recv(<span class="number">1024</span>).decode(<span class="string">"utf8"</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        out_data += data</span><br><span class="line">    <span class="keyword">return</span> out_data</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/socket/" rel="tag"># socket</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/21/Tensorflow-Java/" rel="next" title="Tensorflow-Java">
+                <i class="fa fa-chevron-left"></i> Tensorflow-Java
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/pikachu.png"
+      alt="Mentran">
+  <p class="site-author-name" itemprop="name">Mentran</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Socket-代码实现"><span class="nav-number">1.</span> <span class="nav-text">Socket 代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java版"><span class="nav-number">2.</span> <span class="nav-text">Java版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端"><span class="nav-number">2.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">2.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-版"><span class="nav-number">3.</span> <span class="nav-text">Python 版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端-1"><span class="nav-number">3.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端-1"><span class="nav-number">3.2.</span> <span class="nav-text">客户端</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-child"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mentran</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+  
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
